@@ -34,7 +34,6 @@ import {
 export default function AppointmentButton() {
     const [isDay, setIsDay] = useState(true);
     const [date, setDate] = React.useState<Date>();
-    const c = create.bind(null, 1);
 
     const toggleIcon = () => {
         setIsDay(prevIsDay => !prevIsDay);
@@ -55,7 +54,7 @@ export default function AppointmentButton() {
                             </DialogDescription>
                         </DialogHeader>
                         <div>
-                            <form action={c}>
+                            <form>
                                 <div className="grid w-full items-center gap-4">
                                     <div className="flex flex-row gap-4">
                                         <div className="flex-1">
