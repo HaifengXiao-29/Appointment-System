@@ -28,7 +28,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import {create} from './appointment/actions'
+
 
 
 export default function AppointmentButton() {
