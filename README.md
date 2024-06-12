@@ -12,6 +12,8 @@ yarn dev
 pnpm dev
 # or
 bun dev
+#open Prisma Studio to check db GUI
+npm run prisma:studio
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import {Button} from "@/components/ui/button"
+import axios from "axios";
 
 import {
     Card,
@@ -33,11 +34,32 @@ import {Toggle} from "@/components/ui/toggle"
 import {useState} from "react";
 
 
+
 export default function AppointmentForm() {
     const [isDay, setIsDay] = useState(true);
 
+
     const toggleIcon = () => {
         setIsDay(prevIsDay => !prevIsDay);
+    };
+
+
+    const [state, setState] = useState('')
+
+    const FormAction = async (formData) => {
+
+        console.log(formData)
+
+        try {
+            const res = await fetch('http://localhost:3000/appointment-test/api', {
+                method: 'POST',
+                body: formData
+            })
+            const data = await res.json()
+            setState(data)
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
     };
 
     return (
@@ -49,70 +71,70 @@ export default function AppointmentForm() {
                         <CardDescription>Have a wonderful day!</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <form>
+                        <form action={FormAction}>
                             <div className="grid gap-6">
                                 <div className="flex gap-6">
                                     <div className="w-1/2">
                                         <Label htmlFor="name">Name</Label>
-                                        <Input id="name" placeholder="Mattew Kim"/>
+                                        <Input id="name"  name={"name"} placeholder="Mattew Kim"/>
                                     </div>
                                     <div className="w-1/2">
                                         <Label htmlFor="phone">Phone</Label>
-                                        <Input id="phone" placeholder="000-000-0000"/>
+                                        <Input id="phone" name={"phone"} placeholder="000-000-0000"/>
                                     </div>
                                 </div>
 
                                 <div>
                                     <Label htmlFor="email">Email</Label>
-                                    <Input id="email" placeholder="abc@gmail.com"/>
+                                    <Input id="email" name={"email"} placeholder="abc@gmail.com"/>
                                 </div>
 
-                                <div className="flex gap-4 items-center">
-                                    <div className="flex flex-col">
-                                        <Label htmlFor="startTime">Start Time</Label>
-                                        <InputOTP maxLength={4}>
-                                            <InputOTPGroup>
-                                                <InputOTPSlot index={0}/>
-                                                <InputOTPSlot index={1}/>
-                                            </InputOTPGroup>
-                                            <div className="flex flex-col items-center justify-center">
-                                                <Dot/>
-                                                <Dot/>
-                                            </div>
-                                            <InputOTPGroup>
-                                                <InputOTPSlot index={2}/>
-                                                <InputOTPSlot index={3}/>
-                                            </InputOTPGroup>
-                                        </InputOTP>
-                                    </div>
-                                    <Minus className="w-6 h-6 mt-3"/>
-                                    <div className="flex flex-col">
-                                        <Label htmlFor="endTime">End Time</Label>
-                                        <InputOTP maxLength={4}>
-                                            <InputOTPGroup>
-                                                <InputOTPSlot index={0}/>
-                                                <InputOTPSlot index={1}/>
-                                            </InputOTPGroup>
-                                            <div className="flex flex-col items-center justify-center">
-                                                <Dot/>
-                                                <Dot/>
-                                            </div>
-                                            <InputOTPGroup>
-                                                <InputOTPSlot index={2}/>
-                                                <InputOTPSlot index={3}/>
-                                            </InputOTPGroup>
-                                        </InputOTP>
-                                    </div>
-                                    <div className="mt-3">
-                                        <Toggle aria-label="Toggle day/night" onPressedChange={toggleIcon}>
-                                            {isDay ? <SunDim/> : <Moon/>}
-                                        </Toggle>
-                                    </div>
-                                </div>
+                                {/*<div className="flex gap-4 items-center">*/}
+                                {/*    <div className="flex flex-col">*/}
+                                {/*        <Label htmlFor="startTime">Start Time</Label>*/}
+                                {/*        <InputOTP maxLength={4} value={formData.startTime} onChange={(e) => handleChange(e)}>*/}
+                                {/*            <InputOTPGroup>*/}
+                                {/*                <InputOTPSlot index={0}/>*/}
+                                {/*                <InputOTPSlot index={1}/>*/}
+                                {/*            </InputOTPGroup>*/}
+                                {/*            <div className="flex flex-col items-center justify-center">*/}
+                                {/*                <Dot/>*/}
+                                {/*                <Dot/>*/}
+                                {/*            </div>*/}
+                                {/*            <InputOTPGroup>*/}
+                                {/*                <InputOTPSlot index={2}/>*/}
+                                {/*                <InputOTPSlot index={3}/>*/}
+                                {/*            </InputOTPGroup>*/}
+                                {/*        </InputOTP>*/}
+                                {/*    </div>*/}
+                                {/*    <Minus className="w-6 h-6 mt-3"/>*/}
+                                {/*    <div className="flex flex-col">*/}
+                                {/*        <Label htmlFor="endTime">End Time</Label>*/}
+                                {/*        <InputOTP maxLength={4} value={formData.endTime} onChange={(e) => handleChange(e)}>*/}
+                                {/*            <InputOTPGroup>*/}
+                                {/*                <InputOTPSlot index={0}/>*/}
+                                {/*                <InputOTPSlot index={1}/>*/}
+                                {/*            </InputOTPGroup>*/}
+                                {/*            <div className="flex flex-col items-center justify-center">*/}
+                                {/*                <Dot/>*/}
+                                {/*                <Dot/>*/}
+                                {/*            </div>*/}
+                                {/*            <InputOTPGroup>*/}
+                                {/*                <InputOTPSlot index={2}/>*/}
+                                {/*                <InputOTPSlot index={3}/>*/}
+                                {/*            </InputOTPGroup>*/}
+                                {/*        </InputOTP>*/}
+                                {/*    </div>*/}
+                                {/*    <div className="mt-3">*/}
+                                {/*        <Toggle aria-label="Toggle day/night" onPressedChange={toggleIcon}>*/}
+                                {/*            {isDay ? <SunDim/> : <Moon/>}*/}
+                                {/*        </Toggle>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
 
                                 <div>
                                     <Label htmlFor="program">Program</Label>
-                                    <Select>
+                                    <Select name= "program">
                                         <SelectTrigger id="program">
                                             <SelectValue placeholder="Select"/>
                                         </SelectTrigger>
@@ -127,7 +149,7 @@ export default function AppointmentForm() {
 
                                 <div>
                                     <Label htmlFor="employee">Employee</Label>
-                                    <Select>
+                                    <Select name= "employee">
                                         <SelectTrigger id="employee">
                                             <SelectValue placeholder="Select"/>
                                         </SelectTrigger>
@@ -141,15 +163,17 @@ export default function AppointmentForm() {
                                 </div>
                                 <div>
                                     <Label htmlFor="notes">Notes</Label>
-                                    <Textarea id="notes" placeholder="Type your message here."/>
+                                    <Textarea id="notes"  name={"notes"} placeholder="Type your message here."/>
                                 </div>
                             </div>
+                            <div className={'flex justify-end gap-4'}>
+                                <Button variant="outline" type={"button"}>Cancel</Button>
+                                <Button type={"submit"}>Done</Button>
+                            </div>
+
                         </form>
                     </CardContent>
-                    <CardFooter className="flex justify-end gap-4">
-                        <Button variant="outline">Cancel</Button>
-                        <Button>Done</Button>
-                    </CardFooter>
+
                 </Card>
             </div>
         </main>
