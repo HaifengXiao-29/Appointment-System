@@ -15,12 +15,11 @@ import {Textarea} from "@/components/ui/textarea";
 import * as React from "react";
 import {useState} from "react";
 import {useFormState, useFormStatus} from "react-dom";
-import {useRef} from "react";
 
-export async function FormSubmit(prevState, formData) {
+export async function FormSubmit(prevState: any, formData: { get: (arg0: string) => any; }) {
     console.log(formData.get("notes"))
-    console.log(formData.get("employee"))
-    const res = await fetch("http://localhost:3000/api/post-form-data", {
+    console.log(formData.get("hour"))
+    const res = await fetch("http://localhost:3000/api/post-calendar-events", {
         method: 'POST',
         body: formData
     })
@@ -33,22 +32,23 @@ export default function AppointmentForm() {
     const [isDay, setIsDay] = useState(true);
     const [date, setDate] = React.useState<Date>();
     const [state, FormAction] = useFormState(FormSubmit, '')
+    const [value, setValue] = React.useState("")
     //判断现在是否在加载中
     const {pending} = useFormStatus()
-    //清空填写进去的信息
-    const ref = useRef()
-    const systemCalendarRef = useRef()
+
+
+
     const toggleIcon = () => {
         setIsDay(prevIsDay => !prevIsDay);
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData(ref.current);
+        const formData = new FormData(e.currentTarget);
         formData.append("isDay", isDay ? "day" : "night");
         formData.append("date", date ? format(date, "PPP") : "");
         FormAction(formData);
-        const newEvents = { title: 'event 3', start: '2024-06-12T11:00:00', end: '2024-06-12T12:00:00' }
-        systemCalendarRef.current.addEvent(newEvents)
+
     };
 
     return (
@@ -56,7 +56,7 @@ export default function AppointmentForm() {
             <div className={"text-md text-green-500 py-4"}>
                 {state.message}
             </div>
-            <form ref={ref} onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} >
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-row gap-4">
                         <div className="flex-1">

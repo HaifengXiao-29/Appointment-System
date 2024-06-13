@@ -8,28 +8,22 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import React, {useState} from "react";
 
-const events =[
-    { title: 'event 1', start: '2024-06-09T11:00:00', end: '2024-06-09T12:00:00' },
-    { title: 'event 2', start: '2024-06-10T14:00:00', end: '2024-06-10T15:00:00' }
-];
-
-export function addEvents(newEvent){
-    events.push(newEvent)
+// 定义事件对象的类型
+interface Event {
+    title: string;
+    start: string;
+    end: string;
 }
-export default function SystemCalendar() {
 
-    const [events, setEvents] = useState([
-        { title: 'event 1', start: '2024-06-09T11:00:00', end: '2024-06-09T12:00:00' },
-        { title: 'event 2', start: '2024-06-10T14:00:00', end: '2024-06-10T15:00:00' }
-    ]);
+// 定义组件属性的类型
+interface SystemCalendarProps {
+    events: Event[];
+}
 
-    const addEvents = (newEvent) => {
-        setEvents((prevEvents) => [...prevEvents, newEvent]);
-    };
+export default function SystemCalendar({ events }: SystemCalendarProps) {
 
     return (
         <>
-
             <Card className="w-[800px]">
                 <CardHeader>
                     <CardTitle>Calendar</CardTitle>
