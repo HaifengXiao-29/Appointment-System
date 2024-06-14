@@ -1,22 +1,35 @@
 "use client"
 
-
+import {useEffect, useState} from "react";
 import DashboardHead from "@/components/appointment/Dashboard-head";
 import DashboardLayer2 from "@/components/appointment/Dashboard-layer2";
 import DashboardLayer3 from "@/components/appointment/Dashboard-layer3";
 import DashboardFooter from "@/components/appointment/Dashboard-footer";
+import {Suspense} from "react";
+import AppointmentButton from "@/components/appointment/appointment-button-form";
+import {CustomAlert} from "@/components/appointment/CustomAlert";
 
 
 export default function Dashboard() {
+
+
     return (
         <div className="h-screen flex flex-col">
+
+
             {/* 第一层是header */}
             <header
                 className="flex justify-between items-center p-4 bg-white border-b-4 border-gray-300 w-full h-[10vh]">
                 <DashboardHead/>
             </header>
 
-            {/* 第二层是主要背景图片 */}
+            <div className="absolute top-0 left-0 right-0 z-50">
+                <CustomAlert/>
+            </div>
+
+
+            {/* 第二层是主要背景图片 */
+            }
             <main className="flex-grow flex flex-col justify-between">
                 <div className="relative w-full h-[60vh] flex-grow">
                     <DashboardLayer2/>
@@ -24,7 +37,7 @@ export default function Dashboard() {
 
                 {/* 第三层是一些我们提供的service */}
                 <div className="grid grid-cols-5 gap-4 p-4 w-full h-[20vh] bg-blue-100"> {/* 添加了背景颜色 */}
-                   <DashboardLayer3/>
+                    <DashboardLayer3/>
                 </div>
             </main>
 
@@ -33,9 +46,10 @@ export default function Dashboard() {
                 <DashboardFooter/>
             </footer>
 
-            {/*<Suspense fallback={"loading"}>*/}
-            {/*    <AppointmentButton />*/}
-            {/*</Suspense>*/}
+
+            <Suspense fallback={"loading"}>
+                <AppointmentButton/>
+            </Suspense>
         </div>
     )
 }
