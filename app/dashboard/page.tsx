@@ -1,6 +1,5 @@
 "use client"
 
-import {useEffect, useState} from "react";
 import DashboardHead from "@/components/appointment/Dashboard-head";
 import DashboardLayer2 from "@/components/appointment/Dashboard-layer2";
 import DashboardLayer3 from "@/components/appointment/Dashboard-layer3";
@@ -16,15 +15,15 @@ export default function Dashboard() {
     return (
         <div className="h-screen flex flex-col">
 
-
             {/* 第一层是header */}
             <header
                 className="flex justify-between items-center p-4 bg-white border-b-4 border-gray-300 w-full h-[10vh]">
                 <DashboardHead/>
             </header>
 
-            <div className="absolute top-0 left-0 right-0 z-50">
-                <CustomAlert/>
+            {/*通知！！！！*/}
+            <div className="absolute top-[8vh] left-1/2 transform -translate-x-1/2 w-full max-w-4xl  z-50">
+                <CustomAlert />
             </div>
 
 
