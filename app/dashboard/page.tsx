@@ -4,8 +4,6 @@ import DashboardHead from "@/components/appointment/Dashboard-head";
 import DashboardLayer2 from "@/components/appointment/Dashboard-layer2";
 import DashboardLayer3 from "@/components/appointment/Dashboard-layer3";
 import DashboardFooter from "@/components/appointment/Dashboard-footer";
-import {Suspense} from "react";
-import AppointmentButton from "@/components/appointment/appointment-button-form";
 import {CustomAlert} from "@/components/appointment/CustomAlert";
 
 
