@@ -3,22 +3,48 @@
 import * as React from "react";
 import {Button} from "@/components/ui/button";
 import {ChevronLeft} from "lucide-react";
-import Link from "next/link";
-
+import {Suspense} from "react";
+import {useRouter} from "next/navigation";
+import CustomDatePicker from "@/components/appointment/CustomDatePicker";
 export default function Time() {
+    const router = useRouter();
+
+    const handleButtonClick = (url) => {
+        router.push(url); // 替换成你要导航的目标页面路径
+    };
+
+
     return (
         <>
             <div className={"flex flex-col justify-between"}>
                 <h1>
                     Time
                 </h1>
+                <br/>
 
-                <Link href={'/appointment'}>
-                    <Button className={"px-2 py-2"} variant="link">
+                <div>
+                    <Button
+                        className={"px-2 py-2 w-20"}
+                        variant="link"
+                        onClick={() => handleButtonClick('/appointment')}>
                         <ChevronLeft/>
                         Back
                     </Button>
-                </Link>
+                </div>
+
+                <br/>
+                <Suspense fallback={"loading"}>
+                    <CustomDatePicker/>
+                </Suspense>
+
+                <br/>
+
+                <Button
+                    className={"px-2 py-2 w-20"}
+                    variant="outline"
+                    onClick={() => handleButtonClick('/appointment/time/info')}>
+                    Next
+                </Button>
 
             </div>
         </>

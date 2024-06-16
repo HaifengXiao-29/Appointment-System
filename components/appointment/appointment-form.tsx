@@ -51,22 +51,15 @@ function timeFormat(time, isDay){
 export const revalidate = 10
 export default function AppointmentForm() {
 
-    const [isDay, setIsDay] = useState(true);
     const [date, setDate] = React.useState<Date>();
     const [state, FormAction] = useFormState(FormSubmit, '')
     //判断现在是否在加载中
     const {pending} = useFormStatus()
 
 
-
-    const toggleIcon = () => {
-        setIsDay(prevIsDay => !prevIsDay);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        formData.append("isDay", isDay ? "am" : "pm");
         formData.append("date", date ? format(new Date(date), 'yyyy-MM-dd') : "");
         const time = timeFormat(formData.get('hour'), formData.get('isDay'))
         console.log("time :" + time )

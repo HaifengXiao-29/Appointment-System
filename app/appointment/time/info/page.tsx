@@ -3,9 +3,19 @@
 import * as React from "react";
 import {Button} from "@/components/ui/button";
 import {ChevronLeft} from "lucide-react";
-import Link from "next/link";
+import {useRouter} from "next/navigation";
+import ServiceDetail from "@/components/appointment/ServiceDetail";
+
+
+
 
 export default function Info() {
+    const router = useRouter();
+
+    const handleButtonClick = (url) => {
+        router.push(url); // 替换成你要导航的目标页面路径
+    };
+
     return (
 
         <>
@@ -13,12 +23,24 @@ export default function Info() {
                 <h1>
                     User Info
                 </h1>
-                <Link href={'/appointment/time'}>
-                    <Button className={"px-2 py-2"} variant="link">
+                <br/>
+
+                <div>
+                    <Button
+                        className={"px-2 py-2 w-20"}
+                        variant="link"
+                        onClick={() => handleButtonClick('/appointment/time')}>
                         <ChevronLeft/>
                         Back
                     </Button>
-                </Link>
+                </div>
+
+                <br/>
+
+                <div>
+
+                    <ServiceDetail/>
+                </div>
 
 
             </div>
