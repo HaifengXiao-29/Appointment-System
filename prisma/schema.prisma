@@ -15,9 +15,9 @@ model User {
   name      String   @db.Text
   phone     String   @db.Text
   email     String?  @db.Text
-  startTime DateTime @db.Timestamp()
-  endTime   DateTime @db.Timestamp()
-  date      DateTime @db.Date
+  startTime String   @db.Text
+  endTime   String   @db.Text
+  date      DateTime @db.Date @default(now())
   service   String   @db.Text
   employee  String   @db.Text
   notes     String?  @db.Text

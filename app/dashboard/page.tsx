@@ -46,9 +46,7 @@ export default function Dashboard() {
             </footer>
 
 
-            <Suspense fallback={"loading"}>
-                <AppointmentButton/>
-            </Suspense>
+
         </div>
     )
 }

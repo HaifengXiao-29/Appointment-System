@@ -1,3 +1,7 @@
+import {PrismaClient} from "@prisma/client";
+
+const prisma = new PrismaClient()
+
 export async function POST(req, {params}){
     let res = {message : 'Invalid request'}
     const slug = params.slug
@@ -7,10 +11,35 @@ export async function POST(req, {params}){
         const temp = data.get('hours')
 
 
-        if (!name){
-            res  = {message: 'please fill out the name'}
+        if (name){
+            console.log('Creating user with data:', {
+                name: 'chuan',
+                phone: '0000',
+                email: '112@gmail.com',
+                startTime: '14:30:00',
+                endTime: '16:00:00',
+                service: 'Head',
+                employee: 'Jiaxi',
+                notes: 'be good'
+            });
+
+            // const user = await prisma.user.create({
+            //     data: {
+            //         name: 'chuan',
+            //         phone: '0000',
+            //         email: '123@gmail.com',
+            //         startTime:'14:30:00',
+            //         endTime:'15:30:00',
+            //         service: 'Head',
+            //         employee: 'jiayi',
+            //         notes: 'be good'
+            //     },
+            // })
+            res = { message: 'User created successfully' };
+            // console.log(user)
         }else {
-            res = {message: 'Saved'}
+
+            res  = {message: 'please fill out the name'}
         }
         return Response.json(res)
     }else {

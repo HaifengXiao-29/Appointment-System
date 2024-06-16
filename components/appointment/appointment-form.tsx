@@ -17,8 +17,15 @@ import {useState} from "react";
 import {useFormState, useFormStatus} from "react-dom";
 
 export async function FormSubmit(prevState: any, formData: { get: (arg0: string) => any; }) {
-    console.log(formData.get("notes"))
+    console.log(formData.get("name"))
+    console.log(formData.get("phone"))
     console.log(formData.get("hour"))
+    console.log(formData.get("isDay"))
+    console.log(formData.get("date"))
+    console.log(formData.get("service"))
+    console.log(formData.get("duration"))
+    console.log(formData.get("employee"))
+    console.log(formData.get("notes"))
     const res = await fetch("http://localhost:3000/api/post-calendar-events", {
         method: 'POST',
         body: formData
@@ -26,13 +33,27 @@ export async function FormSubmit(prevState: any, formData: { get: (arg0: string)
     return await res.json()
 }
 
+function timeFormat(time, isDay){
+    const hours = parseInt(time.slice(0, 2), 10);
+    const minutes = time.slice(2);
+
+    let hours24 = hours;
+
+    if (isDay === 'pm' && hours24 < 12) {
+        hours24 += 12;
+    } else if (isDay === 'am' && hours24 === 12) {
+        hours24 = 0;
+    }
+    return `${String(hours24).padStart(2, '0')}:${minutes}:00`
+}
+
+
 export const revalidate = 10
 export default function AppointmentForm() {
 
     const [isDay, setIsDay] = useState(true);
     const [date, setDate] = React.useState<Date>();
     const [state, FormAction] = useFormState(FormSubmit, '')
-    const [value, setValue] = React.useState("")
     //判断现在是否在加载中
     const {pending} = useFormStatus()
 
@@ -45,8 +66,10 @@ export default function AppointmentForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        formData.append("isDay", isDay ? "day" : "night");
-        formData.append("date", date ? format(date, "PPP") : "");
+        formData.append("isDay", isDay ? "am" : "pm");
+        formData.append("date", date ? format(new Date(date), 'yyyy-MM-dd') : "");
+        const time = timeFormat(formData.get('hour'), formData.get('isDay'))
+        console.log("time :" + time )
         FormAction(formData);
 
     };
@@ -74,32 +97,6 @@ export default function AppointmentForm() {
                         <Input id="email" name={"email"} placeholder="abc@gmail.com"/>
                     </div>
 
-                    <div className="flex gap-1 items-center">
-                        <div className="flex gap-4 items-center">
-                            <div>
-                                <Label htmlFor="Start time">Start Time</Label>
-                                <InputOTP name={"hour"} maxLength={4}>
-                                    <InputOTPGroup >
-                                        <InputOTPSlot index={0}/>
-                                        <InputOTPSlot index={1}/>
-                                    </InputOTPGroup>
-                                    <div className="flex flex-col items-center justify-center">
-                                        <Dot/>
-                                        <Dot/>
-                                    </div>
-                                    <InputOTPGroup>
-                                        <InputOTPSlot index={2}/>
-                                        <InputOTPSlot index={3}/>
-                                    </InputOTPGroup>
-                                </InputOTP>
-                            </div>
-                        </div>
-                        <div className="mt-6">
-                            <Toggle aria-label="Toggle day/night" onPressedChange={toggleIcon}>
-                                {isDay ? <SunDim/> : <Moon/>}
-                            </Toggle>
-                        </div>
-                    </div>
 
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="Date">Date</Label>
@@ -156,20 +153,6 @@ export default function AppointmentForm() {
                         </div>
                     </div>
 
-                    <div>
-                        <Label htmlFor="employee">Employee</Label>
-                        <Select name={"employee"}>
-                            <SelectTrigger id="employee">
-                                <SelectValue  placeholder="Select"/>
-                            </SelectTrigger>
-                            <SelectContent position="popper">
-                                <SelectItem value="Miki">Miki</SelectItem>
-                                <SelectItem value="Tommy">Tommy</SelectItem>
-                                <SelectItem value="Astro">Astro</SelectItem>
-                                <SelectItem value="Jason">Jason</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
                     <div>
                         <Label htmlFor="notes">Notes</Label>
                         <Textarea id="notes" name={"notes"} placeholder="Type your message here."/>

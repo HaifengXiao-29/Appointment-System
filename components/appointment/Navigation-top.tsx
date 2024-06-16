@@ -22,7 +22,7 @@ export function Navigation_top() {
             <NavigationMenuList className={"flex items-center gap-3"}>
 
                 <NavigationMenuItem>
-                    <Link href="/docs" legacyBehavior passHref>
+                    <Link href="/dashboard" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             Home
                         </NavigationMenuLink>
@@ -30,9 +30,9 @@ export function Navigation_top() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <Link href="/docs" legacyBehavior passHref>
+                    <Link href="/appointment" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
-                            Service
+                            Book
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
@@ -46,7 +46,7 @@ export function Navigation_top() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <Link href="/docs" legacyBehavior passHref>
+                    <Link href="/dashboard/AboutUs" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             About us
                         </NavigationMenuLink>

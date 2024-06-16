@@ -7,12 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
-    "db:push": "npx dotenv -e .env.local -- prisma db push",
-    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
-    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
-    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
-    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "migrate:dev": "npx dotenv -e .env -- prisma migrate dev",
+    "db:push": "npx dotenv -e .env -- prisma db push",
+    "migrate:reset": "npx dotenv -e .env -- prisma migrate reset",
+    "db:seed": "npx dotenv -e .env -- prisma db seed",
+    "prisma:generate": "npx dotenv -e .env -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env -- prisma studio",
     "production:build": "npx prisma generate && npx prisma migrate deploy && next build"
   },
   "dependencies": {
