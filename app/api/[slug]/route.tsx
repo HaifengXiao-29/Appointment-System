@@ -52,7 +52,28 @@ export async function POST(req, {params}){
 export async function GET(req, {params}){
     let res = {message : 'Invalid request'}
     const slug = params.slug
+
     if (slug === 'get-calendar-events'){
         return Response.json(res)
+    }else if (slug === 'get-available-times'){
+        const queryParams = req.nextUrl.searchParams;
+        const date = queryParams.get('date');
+
+        const appointments = await prisma.user.findMany({
+            where: {
+                date: {
+                    equals: new Date(date),
+                },
+            },
+
+            select: {
+                startTime: true,
+                endTime: true,
+            },
+        })
+
+
+        return Response.json(appointments)
+
     }
 }
