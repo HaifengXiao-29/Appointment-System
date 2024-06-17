@@ -1,5 +1,5 @@
-import DashboardHead from "@/components/appointment/Dashboard-head";
-import DashboardFooter from "@/components/appointment/Dashboard-footer";
+import DashboardHead from "@/components/dashboard/Dashboard-head";
+import DashboardFooter from "@/components/dashboard/Dashboard-footer";
 import * as React from "react";
 
 export default function Layout({

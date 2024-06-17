@@ -1,10 +1,10 @@
 "use client"
 
-import DashboardHead from "@/components/appointment/Dashboard-head";
-import DashboardLayer2 from "@/components/appointment/Dashboard-layer2";
-import DashboardLayer3 from "@/components/appointment/Dashboard-layer3";
-import DashboardFooter from "@/components/appointment/Dashboard-footer";
-import {CustomAlert} from "@/components/appointment/CustomAlert";
+import DashboardHead from "@/components/dashboard/Dashboard-head";
+import DashboardLayer2 from "@/components/dashboard/Dashboard-layer2";
+import DashboardLayer3 from "@/components/dashboard/Dashboard-layer3";
+import DashboardFooter from "@/components/dashboard/Dashboard-footer";
+import {CustomAlert} from "@/components/dashboard/CustomAlert";
 
 
 export default function Dashboard() {

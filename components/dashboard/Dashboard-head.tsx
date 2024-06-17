@@ -1,6 +1,6 @@
 'use client'
 
-import {Navigation_top} from "@/components/appointment/Navigation-top";
+import {Navigation_top} from "@/components/dashboard/Navigation-top";
 
 export default function DashboardHead() {
     return (

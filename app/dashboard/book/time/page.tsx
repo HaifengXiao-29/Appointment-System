@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 import {ChevronLeft} from "lucide-react";
 import {Suspense} from "react";
 import {useRouter} from "next/navigation";
-import CustomDatePicker from "@/components/appointment/CustomDatePicker";
+import CustomDatePicker from "@/components/dashboard/book/time/CustomDatePicker";
 export default function Time() {
     const router = useRouter();
 
@@ -26,7 +26,7 @@ export default function Time() {
                     <Button
                         className={"px-2 py-2 w-20"}
                         variant="link"
-                        onClick={() => handleButtonClick('/appointment')}>
+                        onClick={() => handleButtonClick('/dashboard/book')}>
                         <ChevronLeft/>
                         Back
                     </Button>
@@ -42,7 +42,7 @@ export default function Time() {
                 <Button
                     className={"px-2 py-2 w-20"}
                     variant="outline"
-                    onClick={() => handleButtonClick('/appointment/time/info')}>
+                    onClick={() => handleButtonClick('/dashboard/book/time/info')}>
                     Next
                 </Button>
 
