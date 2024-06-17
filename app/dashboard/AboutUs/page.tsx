@@ -1,4 +1,4 @@
-import DashboardHead from "@/components/appointment/Dashboard-head";
+import DashboardHead from "@/components/dashboard/Dashboard-head";
 
 export default function AboutUs() {
     return (

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import {Suspense} from "react";
-import SystemCalendar from "@/components/appointment/system-calendar";
+import SystemCalendar from "@/components/backend/system-calendar";
 
 export default function backend() {
 

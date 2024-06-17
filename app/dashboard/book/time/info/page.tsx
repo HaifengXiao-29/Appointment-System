@@ -1,13 +1,15 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import {Button} from "@/components/ui/button"
-import {ChevronLeft} from 'lucide-react';
-
-import {ServiceCard} from "@/components/appointment/ServiceCard";
+import * as React from "react";
+import {Button} from "@/components/ui/button";
+import {ChevronLeft} from "lucide-react";
 import {useRouter} from "next/navigation";
+import ServiceDetail from "@/components/dashboard/book/ServiceDetail";
 
-export default function Service() {
+
+
+
+export default function Info() {
     const router = useRouter();
 
     const handleButtonClick = (url) => {
@@ -15,10 +17,11 @@ export default function Service() {
     };
 
     return (
+
         <>
             <div className={"flex flex-col justify-between"}>
                 <h1>
-                    Service
+                    User Info
                 </h1>
                 <br/>
 
@@ -26,7 +29,7 @@ export default function Service() {
                     <Button
                         className={"px-2 py-2 w-20"}
                         variant="link"
-                        onClick={() => handleButtonClick('/dashboard')}>
+                        onClick={() => handleButtonClick('/dashboard/book/time')}>
                         <ChevronLeft/>
                         Back
                     </Button>
@@ -34,19 +37,14 @@ export default function Service() {
 
                 <br/>
 
-                <ServiceCard/>
-                <br/>
+                <div>
 
-
-                <Button
-                    className="px-2 py-2 w-20"
-                    onClick={() => handleButtonClick('/appointment/time')}>
-                    Next
-                </Button>
+                    <ServiceDetail/>
+                </div>
 
 
             </div>
-
         </>
+
     )
 }

@@ -30,7 +30,7 @@ export function Navigation_top() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <Link href="/appointment" legacyBehavior passHref>
+                    <Link href="/dashboard/book" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             Book
                         </NavigationMenuLink>
