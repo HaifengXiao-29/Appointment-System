@@ -58,21 +58,48 @@ export async function GET(req, {params}){
     }else if (slug === 'get-available-times'){
         const queryParams = req.nextUrl.searchParams;
         const date = queryParams.get('date');
+        const startTime = queryParams.get('startTime');
+        const endTime = queryParams.get('endTime');
+        const formattedStartTime = `${startTime}:00`;
+        const formattedEndTime = `${endTime}:00`;
+
+
+        // const date = '2024-06-15'; // 您的查询日期
+        // const startTime = '13:30:00'; // 您的查询开始时间
+        // const endTime = '14:30:00'; // 您的查询结束时间
 
         const appointments = await prisma.user.findMany({
             where: {
                 date: {
                     equals: new Date(date),
                 },
+                OR: [
+                    {
+                        startTime: {
+                            lt: formattedEndTime,
+                        },
+                        endTime: {
+                            gt: formattedStartTime,
+                        },
+                    },
+                    {
+                        startTime: {
+                            gt: formattedStartTime,
+                        },
+                        endTime: {
+                            lt: formattedEndTime,
+                        },
+                    },
+                ],
             },
-
             select: {
-                startTime: true,
-                endTime: true,
+                startTime:true,
+                endTime:true,
+                employee: true,
             },
-        })
+        });
 
-
+        console.log(appointments)
         return Response.json(appointments)
 
     }
