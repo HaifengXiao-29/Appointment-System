@@ -12,7 +12,7 @@ import ErrorAlert from "@/components/unity/ErrorAlert";
 
 
 
-export default function CustomDatePicker({selected, handleDateSelect ,  duration,  takenTime}) {
+export default function CustomDatePicker({selected, handleDateSelect ,  duration,  takenTime, onTimeSelect}) {
     const [timeSlots, setTimeSlots] = useState([]);
     const [showModal, setShowModal] =  React.useState({ isVisible: false, message: "" });
     const closeModal = () => {
@@ -56,6 +56,7 @@ export default function CustomDatePicker({selected, handleDateSelect ,  duration
                 params: { date: selected, startTime: start, endTime: end }
             });
             takenTime(response.data)
+            onTimeSelect(start,end)
 
         } catch (error) {
             console.error("Error fetching available times:", error);
@@ -67,7 +68,7 @@ export default function CustomDatePicker({selected, handleDateSelect ,  duration
         <>
             <div className={"flex flex-col gap-4"}>
                 <DayPicker mode="single" selected={selected} onSelect={handleDateSelect } />
-                <h1>Available List</h1>
+
 
                 <div className={"flex flex-row gap-4"}>
                     <Button onClick={() => handlePeriodClick(9, 13)}>Morning</Button>

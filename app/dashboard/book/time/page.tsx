@@ -20,6 +20,10 @@ export default function Time() {
     const [disabledEmployees, setDisabledEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState("");
 
+    const [selectedSlot, setSelectedSlot] = useState({ start: "", end: "" });
+
+
+
     const handleButtonClick = (url) => {
         router.push(url); // 替换成你要导航的目标页面路径
     };
@@ -29,11 +33,17 @@ export default function Time() {
         setDisabledEmployees(data.map(spot => spot.employee));
     };
 
+    const handleSlotSelect = (start, end) => {
+        setSelectedSlot({ start, end });
+    };
+
     const handleDateSelect = async (date) => {
         setSelected(date);
     };
 
     const handleEmployeeToggle = (employee) => {
+
+
         if (employee === selectedEmployee) {
             // If the current selected employee is clicked again, deselect and enable all non-taken employees
             setSelectedEmployee("");
@@ -62,6 +72,23 @@ export default function Time() {
 
     }, []);
 
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const params = new URLSearchParams(queryParams);
+
+        if (selectedEmployee) {
+            params.set('selectedEmployee', selectedEmployee);
+        }
+        if (selectedSlot.start && selectedSlot.end) {
+            params.set('start', selectedSlot.start);
+            params.set('end', selectedSlot.end);
+        }
+
+        router.push(`/dashboard/book/time/info?${params.toString()}`);
+    };
+
     return (
         <>
             <div className={"flex flex-col justify-between"}>
@@ -87,8 +114,16 @@ export default function Time() {
                     handleDateSelect={handleDateSelect}
                     duration={queryParams.duration}
                     takenTime={handleTakenTime}
+                    onTimeSelect={handleSlotSelect}
                     />
                 </Suspense>
+
+                <br/>
+
+                <div>
+                    <h2>Selected Time:</h2>
+                    <p>{selectedSlot.start} - {selectedSlot.end}</p>
+                </div>
 
                 <br/>
                 <div>
@@ -111,9 +146,15 @@ export default function Time() {
                 <Button
                     className={"px-2 py-2 w-20"}
                     variant="outline"
-                    onClick={() => handleButtonClick('/dashboard/book/time/info')}>
+                    onClick={handleSubmit}>
                     Next
                 </Button>
+
+                <br/>
+                <div>
+                    <h2>Selected Employee:</h2>
+                    <p>{selectedEmployee || "None"}</p>
+                </div>
 
 
 
