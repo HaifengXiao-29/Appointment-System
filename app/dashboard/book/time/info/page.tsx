@@ -3,7 +3,7 @@
 import * as React from "react";
 import {Button} from "@/components/ui/button";
 import {ChevronLeft} from "lucide-react";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import ServiceDetail from "@/components/dashboard/book/ServiceDetail";
 
 
@@ -11,9 +11,10 @@ import ServiceDetail from "@/components/dashboard/book/ServiceDetail";
 
 export default function Info() {
     const router = useRouter();
-
+    const searchParams = useSearchParams();
     const handleButtonClick = (url) => {
-        router.push(url); // 替换成你要导航的目标页面路径
+        const params = new URLSearchParams(searchParams).toString();
+        router.push(`${url}?${params}`); // 替换成你要导航的目标页面路径
     };
 
     return (

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {Suspense} from "react";
 import SystemCalendar from "@/components/backend/system-calendar";
+import EmployeeInfo from "@/components/backend/EmployeeInfo";
 
 export default function backend() {
 
@@ -24,12 +25,18 @@ export default function backend() {
     return (
         <>
 
+
             <div>
                 {data ? <p>Latest data: {data.message}</p> : <p>Loading...</p>}
             </div>
-            <Suspense fallback={"loading"}>
-                <SystemCalendar events={events}/>
-            </Suspense>
+            {/*<Suspense fallback={"loading"}>*/}
+            {/*    <SystemCalendar events={events}/>*/}
+            {/*</Suspense>*/}
+            <EmployeeInfo></EmployeeInfo>
+
+            <div>
+
+            </div>
         </>
 
 

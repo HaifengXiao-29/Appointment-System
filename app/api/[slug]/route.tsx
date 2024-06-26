@@ -1,4 +1,6 @@
 import {PrismaClient} from "@prisma/client";
+import { promises as fs } from 'fs';
+import path from 'path';
 
 const prisma = new PrismaClient()
 
@@ -8,39 +10,48 @@ export async function POST(req, {params}){
     if (slug === 'post-calendar-events'){
         const data = await req.formData()
         const name = data.get('name')
-        const temp = data.get('hours')
-
 
         if (name){
             console.log('Creating user with data:', {
-                name: 'chuan',
-                phone: '0000',
-                email: '112@gmail.com',
-                startTime: '14:30:00',
-                endTime: '16:00:00',
-                service: 'Head',
-                employee: 'Jiaxi',
-                notes: 'be good'
+                name: data.get('name'),
+                phone: data.get('phone'),
+                email: data.get('email'),
+                startTime: data.get('start'),
+                endTime: data.get('end'),
+                service: data.get('services'),
+                date: data.get('date'),
+                employee: data.get('employee'),
+                notes: data.get('notes')
             });
 
-            // const user = await prisma.user.create({
-            //     data: {
-            //         name: 'chuan',
-            //         phone: '0000',
-            //         email: '123@gmail.com',
-            //         startTime:'14:30:00',
-            //         endTime:'15:30:00',
-            //         service: 'Head',
-            //         employee: 'jiayi',
-            //         notes: 'be good'
-            //     },
-            // })
+            const user = await prisma.user.create({
+                data: {
+                    name: data.get('name'),
+                    phone: data.get('phone'),
+                    email: data.get('email'),
+                    startTime: data.get('start'),
+                    endTime: data.get('end'),
+                    service: data.get('services'),
+                    date: data.get('date'),
+                    employee: data.get('employee'),
+                    notes: data.get('notes')
+                },
+            })
             res = { message: 'User created successfully' };
-            // console.log(user)
+
         }else {
 
             res  = {message: 'please fill out the name'}
         }
+        return Response.json(res)
+    }else if (slug === 'update-employee'){
+        const filePath = path.resolve(process.cwd(), 'public/employees.json');
+        const requestBody = await req.json();
+        const { employees, rest } = requestBody;
+        const newData = JSON.stringify({ employees, rest }, null, 2);
+        await fs.writeFile(filePath, newData);
+        res = { message: 'Employees data updated successfully' };
+        
         return Response.json(res)
     }else {
         res = {message: 'wrong address'}

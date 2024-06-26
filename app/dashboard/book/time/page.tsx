@@ -8,6 +8,7 @@ import {useRouter} from "next/navigation";
 import CustomDatePicker from "@/components/dashboard/book/time/CustomDatePicker";
 import axios from "axios";
 import {Toggle} from "@/components/ui/toggle";
+import ErrorAlert from "@/components/unity/ErrorAlert";
 export default function Time() {
     const router = useRouter();
     const [selected, setSelected] = useState<Date>();
@@ -21,8 +22,11 @@ export default function Time() {
     const [selectedEmployee, setSelectedEmployee] = useState("");
 
     const [selectedSlot, setSelectedSlot] = useState({ start: "", end: "" });
+    const [showModal, setShowModal] =  React.useState({ isVisible: false, message: "" });
 
-
+    const closeModal = () => {
+        setShowModal({ isVisible: false, message: "" });
+    };
 
     const handleButtonClick = (url) => {
         router.push(url); // 替换成你要导航的目标页面路径
@@ -42,8 +46,6 @@ export default function Time() {
     };
 
     const handleEmployeeToggle = (employee) => {
-
-
         if (employee === selectedEmployee) {
             // If the current selected employee is clicked again, deselect and enable all non-taken employees
             setSelectedEmployee("");
@@ -73,18 +75,33 @@ export default function Time() {
     }, []);
 
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const params = new URLSearchParams(queryParams);
-
-        if (selectedEmployee) {
-            params.set('selectedEmployee', selectedEmployee);
+        if(selected){
+            const date = selected.toISOString();
+            params.set('date', date)
+        }else {
+            setShowModal({ isVisible: true, message: "Please select a date." });
+            return;
         }
         if (selectedSlot.start && selectedSlot.end) {
             params.set('start', selectedSlot.start);
             params.set('end', selectedSlot.end);
+        }else {
+            setShowModal({ isVisible: true, message: "Please select a time." });
+            return;
         }
+        if (selectedEmployee) {
+            params.set('employee', selectedEmployee);
+        }else {
+            setShowModal({ isVisible: true, message: "Please select a technician." });
+            return;
+        }
+
+
 
         router.push(`/dashboard/book/time/info?${params.toString()}`);
     };
@@ -131,7 +148,7 @@ export default function Time() {
                         <Toggle
                             key={index}
                             aria-label={`Toggle ${employee}`}
-                            className={"px-2 py-2 w-20"}
+                            className={`px-2 py-2 w-30 gap-4`}
                             onClick={() => handleEmployeeToggle(employee)}
                             disabled={disabledEmployees.includes(employee)}
                         >
@@ -157,7 +174,7 @@ export default function Time() {
                 </div>
 
 
-
+                <ErrorAlert showModal={showModal} closeModal={closeModal} />
 
 
             </div>
