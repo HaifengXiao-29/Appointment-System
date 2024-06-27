@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {Suspense} from "react";
 import SystemCalendar from "@/components/backend/system-calendar";
 import EmployeeInfo from "@/components/backend/EmployeeInfo";
+import ActivityInput from "@/components/backend/ActivityInput";
 
 export default function backend() {
 
@@ -33,10 +34,11 @@ export default function backend() {
             {/*    <SystemCalendar events={events}/>*/}
             {/*</Suspense>*/}
             <EmployeeInfo></EmployeeInfo>
+            <br/>
 
-            <div>
+            <ActivityInput></ActivityInput>
 
-            </div>
+
         </>
 
 

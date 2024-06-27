@@ -3,7 +3,8 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const prisma = new PrismaClient()
-
+const employeeInfoFile = path.resolve(process.cwd(), 'public/employees.json');
+const activityFile = path.resolve(process.cwd(), 'public/activity.json');
 export async function POST(req, {params}){
     let res = {message : 'Invalid request'}
     const slug = params.slug
@@ -45,15 +46,22 @@ export async function POST(req, {params}){
         }
         return Response.json(res)
     }else if (slug === 'update-employee'){
-        const filePath = path.resolve(process.cwd(), 'public/employees.json');
+
         const requestBody = await req.json();
         const { employees, rest } = requestBody;
         const newData = JSON.stringify({ employees, rest }, null, 2);
-        await fs.writeFile(filePath, newData);
+        await fs.writeFile(employeeInfoFile, newData);
         res = { message: 'Employees data updated successfully' };
-        
+
         return Response.json(res)
-    }else {
+    }else if (slug === 'update-activity'){
+        const requestBody = await req.json();
+        const { activity } = requestBody;
+        await fs.writeFile(activityFile, JSON.stringify({ activity }, null, 2));
+        return Response.json(res)
+    }
+
+    else {
         res = {message: 'wrong address'}
         return Response.json(res)
     }
@@ -66,7 +74,8 @@ export async function GET(req, {params}){
 
     if (slug === 'get-calendar-events'){
         return Response.json(res)
-    }else if (slug === 'get-available-times'){
+    }
+    else if (slug === 'get-available-times'){
         const queryParams = req.nextUrl.searchParams;
         const date = queryParams.get('date');
         const startTime = queryParams.get('startTime');
@@ -113,5 +122,14 @@ export async function GET(req, {params}){
         console.log(appointments)
         return Response.json(appointments)
 
+    }
+    else if (slug === 'get-employee'){
+        const data = await fs.readFile(employeeInfoFile, 'utf-8');
+        const employees = JSON.parse(data);
+        return Response.json(employees)
+    }else if (slug === 'get-activity'){
+        const data = await fs.readFile(activityFile, 'utf-8');
+        const activity = JSON.parse(data);
+        return Response.json(activity)
     }
 }

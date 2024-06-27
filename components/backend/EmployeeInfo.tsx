@@ -13,7 +13,7 @@ export default  function EmployeeInfo() {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('/employees.json');
+                const response = await axios.get('/api/get-employee');
                 setEmployees(response.data.employees || []);
                 setRestingEmployees(response.data.rest || []);
             } catch (error) {
