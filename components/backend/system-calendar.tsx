@@ -33,8 +33,8 @@ export default function SystemCalendar({ events }: SystemCalendarProps) {
                         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                         initialView="timeGridWeek"
                         allDaySlot={false} // 取消 all-day 行
-                        slotMinTime="10:00:00" // 每天开始时间
-                        slotMaxTime="23:00:00" // 每天结束时间
+                        slotMinTime="09:00:00" // 每天开始时间
+                        slotMaxTime="21:00:00" // 每天结束时间
                         height="auto" // 自适应高度
                         contentHeight="auto" // 自适应内容高度
                         expandRows={true} // 扩展行以适应内容
