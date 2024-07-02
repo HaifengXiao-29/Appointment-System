@@ -37,23 +37,23 @@ export function Navigation_top() {
                     </Link>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                     <Link href="/docs" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             Technician
                         </NavigationMenuLink>
                     </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
 
                 <NavigationMenuItem>
-                    <Link href="/dashboard/AboutUs" legacyBehavior passHref>
+                    <Link href="/dashboard/about-us" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             About us
                         </NavigationMenuLink>
                     </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <Link href="/docs" legacyBehavior passHref>
+                    <Link href="/dashboard/contact-us" legacyBehavior passHref>
                         <NavigationMenuLink className={navigation_word_style()}>
                             Contact us
                         </NavigationMenuLink>
