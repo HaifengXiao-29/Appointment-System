@@ -73,7 +73,31 @@ export async function GET(req, {params}){
     const slug = params.slug
 
     if (slug === 'get-calendar-events'){
-        return Response.json(res)
+        const users = await prisma.user.findMany({
+            select: {
+                name: true,
+                startTime: true,
+                endTime: true,
+                service: true,
+                date: true,
+                employee: true,
+                notes: true
+            },
+        });
+
+
+
+        const events = users.map(user => {
+            const date = user.date.toISOString().split('T')[0];
+            return {
+                title: user.employee,
+                start: `${date}T${user.startTime}:00`,
+                end: `${date}T${user.endTime}:00`
+            };
+        });
+
+        // console.log(users)
+        return Response.json(users)
     }
     else if (slug === 'get-available-times'){
         const queryParams = req.nextUrl.searchParams;
