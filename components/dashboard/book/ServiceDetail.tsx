@@ -61,91 +61,97 @@ export default function ServiceDetail() {
     }, []);
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <div >
+                <form
+                    onSubmit={handleSubmit}
+                    className={"flex flex-col md:flex-row gap-20"}
+                >
                     <div>
-                        <p>{queryParams.employee}</p>
-                    </div>
-                    <div className={"text-md text-green-500 py-4"}>
-                        {state.message}
-                    </div>
-
-                    <div className="grid w-full items-center gap-4">
-                        <div className="flex flex-row gap-4">
-                            <div className="flex-1">
-                                <Label htmlFor="name">Name</Label>
-                                <Input id="name" name={"name"} placeholder="Mattew Kim"/>
-                            </div>
-                            <div className="flex-1">
-                                <Label htmlFor="phone">Phone</Label>
-                                <Input id="phone" name={"phone"} placeholder="000-000-0000"/>
-                            </div>
-                        </div>
-
                         <div>
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" name={"email"} placeholder="abc@gmail.com"/>
+                            <p>{queryParams.employee}</p>
+                        </div>
+                        <div className={"text-md text-green-500 py-4"}>
+                            {state.message}
                         </div>
 
+                        <div className="flex grid  items-center gap-4">
+                            <div className="flex flex-row gap-4">
+                                <div className="flex-1">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input id="name" name={"name"} placeholder="Mattew Kim"/>
+                                </div>
+                                <div className="flex-1">
+                                    <Label htmlFor="phone">Phone</Label>
+                                    <Input id="phone" name={"phone"} placeholder="000-000-0000"/>
+                                </div>
+                            </div>
 
-                        <div>
-                            <Label htmlFor="notes">Notes</Label>
-                            <Textarea id="notes" name={"notes"} placeholder="Type your message here."/>
-                        </div>
+                            <div>
+                                <Label htmlFor="email">Email</Label>
+                                <Input id="email" name={"email"} placeholder="abc@gmail.com"/>
+                            </div>
 
-                    </div>
-                </div>
 
-                <div className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg mt-10">
-                    <h2 className="text-2xl font-bold mb-4">Confirm Your Booking</h2>
-                    <div className="mb-4">
-                        <div className="flex justify-between">
-                            <span className="font-semibold">Date:</span>
-                            <span>{formatDate(queryParams.date)} {queryParams.start}</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span className="font-semibold">Provider:</span>
-                            <span>Health & Beauty Spa</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span className="font-semibold">Location:</span>
-                            <span className="text-red-400">2840 Main St, Glastonbury, CT 06033</span>
-                        </div>
-                    </div>
-                    <hr className="my-4"/>
-                    <div className="mb-4">
-                        <h3 className="font-semibold">Services:</h3>
-                        <div className="flex justify-between mt-2">
-                            <span>{queryParams.duration} minutes - {queryParams.services}</span>
+                            <div>
+                                <Label htmlFor="notes">Notes</Label>
+                                <Textarea id="notes" name={"notes"} placeholder="Type your message here."/>
+                            </div>
+
                         </div>
                     </div>
 
+                    <div className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg mt-10">
+                        <h2 className="text-2xl font-bold mb-4">Confirm Your Booking</h2>
+                        <div className="mb-4">
+                            <div className="flex justify-between">
+                                <span className="font-semibold">Date:</span>
+                                <span>{formatDate(queryParams.date)} {queryParams.start}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="font-semibold">Provider:</span>
+                                <span>Health & Beauty Spa</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="font-semibold">Location:</span>
+                                <span className="text-red-400">2840 Main St, Glastonbury, CT 06033</span>
+                            </div>
+                        </div>
+                        <hr className="my-4"/>
+                        <div className="mb-4">
+                            <h3 className="font-semibold">Services:</h3>
+                            <div className="flex justify-between mt-2">
+                                <span>{queryParams.duration} minutes - {queryParams.services}</span>
+                            </div>
+                        </div>
 
-                    <hr className="my-4"/>
-                    <div className="flex justify-between font-bold mb-4">
-                        <span>Total for booking:</span>
-                        <span>$ 40</span>
+
+                        <hr className="my-4"/>
+                        <div className="flex justify-between font-bold mb-4">
+                            <span>Total for booking:</span>
+                            <span>$ 40</span>
+                        </div>
+                        <div className="mb-4">
+                            <label className="flex items-center">
+                                <input
+                                    type="checkbox"
+
+                                    className="mr-2"
+                                />
+                                <span>I agree with the Terms & Conditions *</span>
+                            </label>
+
+                        </div>
+                        <button
+                            aria-disabled={pending}
+                            className="w-full py-2 bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold rounded-full mt-4"
+                            type={"submit"}
+                        >
+                            Confirm booking
+                        </button>
                     </div>
-                    <div className="mb-4">
-                        <label className="flex items-center">
-                            <input
-                                type="checkbox"
+                </form>
+            </div>
 
-                                className="mr-2"
-                            />
-                            <span>I agree with the Terms & Conditions *</span>
-                        </label>
-
-                    </div>
-                    <button
-                        aria-disabled={pending}
-                        className="w-full py-2 bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold rounded-full mt-4"
-                        type={"submit"}
-                    >
-                        Confirm booking
-                    </button>
-                </div>
-            </form>
         </>
     )
 }

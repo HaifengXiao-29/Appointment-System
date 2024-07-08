@@ -133,7 +133,7 @@ export default function Time() {
     return (
         <>
             <GlobalStyle/>
-            <div>
+            <div className={"flex flex-col gap-8"}>
 
                 <div className="mb-4">
                     <Button
@@ -165,7 +165,7 @@ export default function Time() {
                         </div>
 
 
-                        <div className="relative flex flex-col gap-10 p-4 ">
+                        <div className="relative flex flex-col gap-10 p-4">
                             <div className={"flex flex-col gap-2"}>
                                 <h2 className="text-lg font-semibold ">Selected Time:</h2>
                                 <p className={"custom-text"}>
@@ -196,7 +196,7 @@ export default function Time() {
                                 ))}
                             </div>
 
-
+                            <div className="absolute bottom-14 w-1/2 h-0.5 bg-blue-300 my-4 self-end"></div>
                             <Button
                                 className="px-2 py-2 w-40 text-lg absolute bottom-4 self-end custom-button"
                                 variant="outline"

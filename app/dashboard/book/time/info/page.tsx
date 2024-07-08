@@ -7,8 +7,6 @@ import {useRouter, useSearchParams} from "next/navigation";
 import ServiceDetail from "@/components/dashboard/book/ServiceDetail";
 
 
-
-
 export default function Info() {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -20,28 +18,25 @@ export default function Info() {
     return (
 
         <>
-
-            <div className="mb-4">
-                <Button
-                    className={"px-2 py-2 w-20 text-lg"}
-                    variant="link"
-                    onClick={() => handleButtonClick('/dashboard/book/time')}>
-                    <ChevronLeft/>
-                    Back
-                </Button>
-            </div>
-
-            <div className={"flex flex-col justify-between"}>
-
-
-
-                <div>
-
-                    <ServiceDetail/>
+            <div className={"flex flex-col gap-8"}>
+                <div className="mb-4">
+                    <Button
+                        className={"px-2 py-2 w-20 text-lg"}
+                        variant="link"
+                        onClick={() => handleButtonClick('/dashboard/book/time')}>
+                        <ChevronLeft/>
+                        Back
+                    </Button>
                 </div>
 
 
+                <div className={"flex justify-center"}>
+
+                    <ServiceDetail/>
+                </div>
             </div>
+
+
         </>
 
     )
