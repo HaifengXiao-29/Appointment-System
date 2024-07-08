@@ -4,6 +4,7 @@ import * as React from "react"
 import {Button} from "@/components/ui/button"
 import {ChevronLeft} from 'lucide-react';
 
+
 import ServiceCard from "@/components/dashboard/book/ServiceCard";
 import {useRouter} from "next/navigation";
 import {
@@ -21,7 +22,12 @@ import ErrorAlert from "@/components/unity/ErrorAlert";
 export default function Service() {
     const router = useRouter();
     const [selectedServices, setSelectedServices] = React.useState([]);
-    const [showModal, setShowModal] =  React.useState({ isVisible: false, message: "" });
+    const [showModal, setShowModal] = React.useState({isVisible: false, message: ""});
+
+
+
+
+
     const handleButtonClick = (url) => {
         router.push(url); // 替换成你要导航的目标页面路径
     };
@@ -37,7 +43,7 @@ export default function Service() {
     };
 
     const closeModal = () => {
-        setShowModal({ isVisible: false, message: "" });
+        setShowModal({isVisible: false, message: ""});
     };
 
     const handleSubmit = (event) => {
@@ -48,12 +54,12 @@ export default function Service() {
         const duration = formData.get("duration")
 
         if (services.length === 0 || services.includes('')) {
-            setShowModal({ isVisible: true, message: "Please select a service." });
+            setShowModal({isVisible: true, message: "Please select a service."});
             return;
         }
 
-        if (!duration){
-            setShowModal({ isVisible: true, message: "Please select a duration." });
+        if (!duration) {
+            setShowModal({isVisible: true, message: "Please select a duration."});
             return;
         }
 
@@ -63,73 +69,71 @@ export default function Service() {
     };
     return (
         <>
+            <Button
+                className="px-2 py-2 w-20 mb-4 text-lg"
+                variant="link"
+                onClick={() => handleButtonClick('/dashboard')}
+            >
+                <ChevronLeft/>
+                Back
+            </Button>
 
-            <div className={"flex flex-col justify-between"}>
-                <h1>
-                    Service
+
+            <div className="flex flex-col justify-center items-center py-10 px-4 gap-4">
+                <h1 className="text-4xl font-semibold mb-4 relative inline-block">
+                    What we offer
+                    <span className="block h-1 bg-blue-300 absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-1/3"></span>
                 </h1>
-                <br/>
 
-                <div>
-                    <Button
-                        className={"px-2 py-2 w-20"}
-                        variant="link"
-                        onClick={() => handleButtonClick('/dashboard')}>
-                        <ChevronLeft/>
-                        Back
-                    </Button>
-                </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-center">
+                    <div className="grid sm:grid-cols-2 gap-6">
+                        <ServiceCard
+                            serviceName="Body"
+                            serviceImg="image"
+                            serviceDes="service 1"
+                            onSelect={handleSelect}
+                        />
 
-                <br/>
-                <form onSubmit={handleSubmit} className={"flex flex-col gap-4"}>
-                    <ServiceCard
-                        serviceName={'Head'}
-                        serviceImg={'image'}
-                        serviceDes={'service 1'}
-                        onSelect={handleSelect}
-                    />
+                        <ServiceCard
+                            serviceName="Foot"
+                            serviceImg="image"
+                            serviceDes="service 2"
+                            onSelect={handleSelect}
+                        />
+                    </div>
 
-                    <ServiceCard
-                        serviceName={'Foot'}
-                        serviceImg={'image'}
-                        serviceDes={'service 2'}
-                        onSelect={handleSelect}
-                    />
+                    <div className="flex flex-row justify-between gap-4 mt-6">
+                        <Select name="duration">
+                            <SelectTrigger className="w-40 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <SelectValue placeholder="Select Duration"/>
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Duration</SelectLabel>
+                                    <SelectItem value="30">30 min</SelectItem>
+                                    <SelectItem value="60">1 hour</SelectItem>
+                                    <SelectItem value="90">1 hour 30 min</SelectItem>
 
-                    <Select name={"duration"}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Duration" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Duration</SelectLabel>
-                                <SelectItem value="40">40 min</SelectItem>
-                                <SelectItem value="60">1 hour</SelectItem>
-                                <SelectItem value="90">1 hour 30 min</SelectItem>
-                                <SelectItem value="120">2 hour</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
 
 
-                    <Button
-                        className="px-2 py-2 w-20"
-                        type={"submit"}
-                       >
-                        Next
-                    </Button>
+                        <Button
+                            className="px-4 py-2 text-lg"
+                            type={"submit"}
+                        >
+                            Next
+                        </Button>
+                    </div>
                 </form>
 
-                <br/>
 
 
 
-                <ErrorAlert showModal={showModal} closeModal={closeModal} />
-
-
-
+                <ErrorAlert showModal={showModal} closeModal={closeModal}/>
             </div>
-
         </>
+
     )
 }

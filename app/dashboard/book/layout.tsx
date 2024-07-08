@@ -17,7 +17,7 @@ export default function Layout({
             </header>
 
 
-            <main className="flex-grow flex flex-col justify-between">
+            <main className="flex-grow flex flex-col">
                 {children}
             </main>
 

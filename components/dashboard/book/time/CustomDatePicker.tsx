@@ -1,5 +1,5 @@
 'use client'
-import { DayPicker } from "react-day-picker";
+import {DayPicker} from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 import * as React from "react";
@@ -9,14 +9,11 @@ import {Button} from "@/components/ui/button";
 import ErrorAlert from "@/components/unity/ErrorAlert";
 
 
-
-
-
-export default function CustomDatePicker({selected, handleDateSelect ,  duration,  takenTime, onTimeSelect}) {
+export default function CustomDatePicker({selected, handleDateSelect, duration, takenTime, onTimeSelect}) {
     const [timeSlots, setTimeSlots] = useState([]);
-    const [showModal, setShowModal] =  React.useState({ isVisible: false, message: "" });
+    const [showModal, setShowModal] = React.useState({isVisible: false, message: ""});
     const closeModal = () => {
-        setShowModal({ isVisible: false, message: "" });
+        setShowModal({isVisible: false, message: ""});
     };
 
     const generateTimeSlots = (start, end) => {
@@ -32,7 +29,7 @@ export default function CustomDatePicker({selected, handleDateSelect ,  duration
 
     const handlePeriodClick = (start, end) => {
         if (!selected) {
-            setShowModal({ isVisible: true, message: "Please select a date." });
+            setShowModal({isVisible: true, message: "Please select a date."});
             return;
         }
         const slots = generateTimeSlots(start, end);
@@ -53,10 +50,10 @@ export default function CustomDatePicker({selected, handleDateSelect ,  duration
             console.log(`Start: ${start}, End: ${end}`);
 
             const response = await axios.get('/api/get-available-times', {
-                params: { date: selected, startTime: start, endTime: end }
+                params: {date: selected, startTime: start, endTime: end}
             });
             takenTime(response.data)
-            onTimeSelect(start,end)
+            onTimeSelect(start, end)
 
         } catch (error) {
             console.error("Error fetching available times:", error);
@@ -64,30 +61,60 @@ export default function CustomDatePicker({selected, handleDateSelect ,  duration
     };
 
 
-    return(
+    return (
         <>
-            <div className={"flex flex-col gap-4"}>
-                <DayPicker mode="single" selected={selected} onSelect={handleDateSelect } />
+            <div className={"flex flex-col items-center gap-4 p-6 bg-white shadow-lg rounded-lg mx-auto"}>
 
+                <DayPicker mode="single" selected={selected} onSelect={handleDateSelect}/>
 
-                <div className={"flex flex-row gap-4"}>
-                    <Button onClick={() => handlePeriodClick(9, 13)}>Morning</Button>
-                    <Button onClick={() => handlePeriodClick(13, 17)}>Afternoon</Button>
-                    <Button onClick={() => handlePeriodClick(17, 21)}>Evening</Button>
+                <div className="relative w-full my-4">
+                    <div className="absolute left-1/2 transform -translate-x-1/2" style={{ width: '30%', borderBottom: '2px solid #60a5fa' }}></div>
                 </div>
 
-                <div className={"flex flex-wrap gap-2 mt-4"}>
-                    {timeSlots.map((slot, index) => (
-                        <button key={index}
-                                className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                <div className={"flex flex-row gap-4 mt-4"}>
+                    <Button
+                        onClick={() => handlePeriodClick(9, 13)}
+                        className={"px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:bg-blue-700 transition duration-150 text-md"}
+                    >
+                        Morning
+                    </Button>
+                    <Button
+                        onClick={() => handlePeriodClick(13, 17)}
+                        className={"px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:bg-blue-700 transition duration-150 text-md"}
+                    >
+                        Afternoon
+                    </Button>
+                    <Button
+                        onClick={() => handlePeriodClick(17, 21)}
+                        className={"px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:bg-blue-700 transition duration-150 text-md"}
+                    >
+                        Evening
+                    </Button>
+                </div>
+
+                <div className={"grid grid-cols-4 gap-2 mt-4 w-full"}>
+                    {timeSlots.length === 0 ? (
+                        // Placeholder slots
+                        Array.from({ length: 8 }).map((_, index) => (
+                            <div key={index} className="p-2 invisible">
+                                00:00
+                            </div>
+                        ))
+                    ) : (
+                        // Actual time slots
+                        timeSlots.map((slot, index) => (
+                            <button
+                                key={index}
+                                className="p-2 bg-gray-200 rounded hover:bg-gray-300 text-center"
                                 onClick={() => handleTimeSlotClick(slot)}
-                        >
-                            {slot}
-                        </button>
-                    ))}
+                            >
+                                {slot}
+                            </button>
+                        ))
+                    )}
                 </div>
 
-                <ErrorAlert showModal={showModal} closeModal={closeModal} />
+                <ErrorAlert showModal={showModal} closeModal={closeModal}/>
 
 
             </div>

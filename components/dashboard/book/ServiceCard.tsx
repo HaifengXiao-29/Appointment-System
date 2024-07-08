@@ -27,7 +27,7 @@ export default function ServiceCard({serviceName, serviceImg, serviceDes, onSele
     return (
         <>
             <Card onClick={handleCardClick}
-                  className={`w-[350px] ${isSelected ? 'bg-gray-100' : 'hover:border-2 hover:border-gray-300'}`}
+                  className={`w-[200px] ${isSelected ? 'bg-gray-100' : 'hover:border-2 hover:border-gray-300'}`}
             >
                 <CardHeader>
 
