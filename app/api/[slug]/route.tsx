@@ -1,13 +1,18 @@
 import {PrismaClient} from "@prisma/client";
 import { promises as fs } from 'fs';
 import path from 'path';
+import { Resend } from 'resend';
+import KoalaWelcomeEmail from "@/components/unity/Email";
 
 const prisma = new PrismaClient()
 const employeeInfoFile = path.resolve(process.cwd(), 'public/employees.json');
 const activityFile = path.resolve(process.cwd(), 'public/activity.json');
+const resend = new Resend(process.env["RESEND_API_KEY "]);
+
 export async function POST(req, {params}){
     let res = {message : 'Invalid request'}
     const slug = params.slug
+
     if (slug === 'post-calendar-events'){
         const data = await req.formData()
         const name = data.get('name')
@@ -25,25 +30,35 @@ export async function POST(req, {params}){
                 notes: data.get('notes')
             });
 
-            const user = await prisma.user.create({
-                data: {
-                    name: data.get('name'),
-                    phone: data.get('phone'),
-                    email: data.get('email'),
-                    startTime: data.get('start'),
-                    endTime: data.get('end'),
-                    service: data.get('services'),
-                    date: data.get('date'),
-                    employee: data.get('employee'),
-                    notes: data.get('notes')
-                },
-            })
+            // const user = await prisma.user.create({
+            //     data: {
+            //         name: data.get('name'),
+            //         phone: data.get('phone'),
+            //         email: data.get('email'),
+            //         startTime: data.get('start'),
+            //         endTime: data.get('end'),
+            //         service: data.get('services'),
+            //         date: data.get('date'),
+            //         employee: data.get('employee'),
+            //         notes: data.get('notes')
+            //     },
+            // })
+
+            await resend.emails.send({
+                from: 'onboarding@resend.dev',
+                to: 'hlzhuanqian2025@gmail.com',
+                subject: 'Thank You for the appointment',
+                react: <KoalaWelcomeEmail/>,
+            });
+
             res = { message: 'User created successfully' };
 
         }else {
 
             res  = {message: 'please fill out the name'}
         }
+
+
         return Response.json(res)
     }else if (slug === 'update-employee'){
 
@@ -84,8 +99,6 @@ export async function GET(req, {params}){
                 notes: true
             },
         });
-
-
 
         const events = users.map(user => {
             const date = user.date.toISOString().split('T')[0];

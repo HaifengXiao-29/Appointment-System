@@ -196,9 +196,9 @@ export default function Time() {
                                 ))}
                             </div>
 
-                            <div className="absolute bottom-14 w-1/2 h-0.5 bg-blue-300 my-4 self-end"></div>
+                            <div className=" w-1/2 h-0.5 bg-blue-300 my-4 self-end"></div>
                             <Button
-                                className="px-2 py-2 w-40 text-lg absolute bottom-4 self-end custom-button"
+                                className="px-2 py-2 w-40 text-lg self-end custom-button"
                                 variant="outline"
                                 onClick={handleSubmit}>
                                 Next
