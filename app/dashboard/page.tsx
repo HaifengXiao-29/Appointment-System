@@ -14,7 +14,7 @@ export default function Dashboard() {
 
             {/* 第一层是header */}
             <header
-                className="flex justify-between items-center p-4 bg-white border-gray-300 w-full h-[10vh]">
+                className="flex justify-between items-center p-4 bg-white w-full h-[10vh]">
                 <DashboardHead/>
             </header>
 

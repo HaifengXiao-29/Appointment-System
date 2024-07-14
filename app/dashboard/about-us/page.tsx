@@ -10,10 +10,7 @@ export default function AboutUs() {
         </header>
 
         <main className="flex flex-col">
-          <div className="w-full h-[40vh] flex-grow">
-          </div>
-
-          <div className="grid grid-cols-5 gap-4 p-4 w-full h-[40vh] bg-blue-100">
+          <div className="w-full h-[80vh] flex-grow">
           </div>
         </main>
 

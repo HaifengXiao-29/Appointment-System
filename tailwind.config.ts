@@ -79,7 +79,8 @@ const config = {
       },
       backgroundImage: {
         'leaf': "url('../public/images/leaf.jpg')",
-        'light': "url('../public/images/light.jpg')"
+        'light': "url('../public/images/light.jpg')",
+        'map': "url('../public/images/map.png')"
       },
     },
   },
